@@ -1,21 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
 
-export default function PokemonDetail(pokemonUrl) {
+export default function PokemonDetail(pokemon) {
 
-    console.log(pokemonUrl)
-    const url = `https://pokeapi.co/api/v2/pokemon/1/`;
-    // const url = { pokemonUrl }
-    const [pokemon, setPokemon] = useState(null)
+    // console.log(pokemonUrl)
+    // const url = `https://pokeapi.co/api/v2/pokemon/1/`;
+    // // const url = { pokemonUrl }
+    const [pokemonData, setPokemonData] = useState(null)
 
     const getPokemon = async () => {
         try {
-            console.log(pokemonUrl)
-        const response = await fetch({pokemonUrl});
-        console.log("HI")
+            const response = await fetch(`${pokemon.pokemon.url}`);
+            console.log("HI")
             const data = await response.json();
             //sets data as state
-            setPokemon(data)
+            setPokemonData(data)
         } catch (e) {
             console.error(e)
         }
@@ -28,12 +27,20 @@ export default function PokemonDetail(pokemonUrl) {
     return (
         <div>
 
-            {pokemon?.moves?.map((move, index) => (
-                <div key={index}>
+            {/* {console.log(pokemon.pokemon.url)}
+            {console.log(pokemonData)} */}
+
+            <div>
+                <h2>Moves:</h2>
+                {pokemonData?.moves?.map((move, index) => (
+                    <div key={index}>
                         {move.move.name}
-                </div>
-            ))}
-            Details
+                    </div>
+                ))}
+            </div>
+
+
+
         </div>
     )
 }
